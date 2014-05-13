@@ -16,47 +16,156 @@ import java.util.Random;
  */
 public class RandomizedQueue<Item> implements RandomQueueInterface<Item>, Iterable<Item> {
 
-    private ArrayList<Item> queue;
-    private Random random = new Random(100);
+    private int size;
+    private int allocatedSize;
+    Random generator;
+    private Item[] listOfElements;
 
+    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
-        this.queue = new ArrayList<Item>();
-        Collections.shuffle(queue);
-        
-    }
-
-    @Override
-    public Iterator<Item> iterator() {
-        return this.queue.iterator();
+        this.size = 0;
+        this.allocatedSize = 1;
+        this.listOfElements = (Item[]) new Object[1];
+        this.generator = new Random();
     }
 
     @Override
     public boolean isEmpty() {
-        return queue.isEmpty();
+        return size == 0;
     }
 
     @Override
     public int size() {
-        return queue.size();
+        return this.size;
     }
 
     @Override
     public void enqueue(Item item) {
-        this.queue.add(item);
+
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
+        if (size == allocatedSize) {
+            resizeDouble();
+        }
+
+        listOfElements[size] = item;
+        size++;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resizeDouble() {
+
+        allocatedSize *= 2;
+        Item[] newListOfElements = (Item[]) new Object[allocatedSize];
+
+        for (int i = 0; i < size; i++) {
+            newListOfElements[i] = listOfElements[i];
+        }
+
+        listOfElements = newListOfElements;
     }
 
     @Override
     public Item dequeue() {
-        int index = random.nextInt(this.queue.size());
-        Item item = this.queue.get(index);
-        this.queue.remove(index);
-        return item;
+        if (this.isEmpty()) {
+            throw new java.util.NoSuchElementException();
+        }
+
+        Item returnValue = null;
+        int position = generator.nextInt(size);
+        returnValue = listOfElements[position];
+
+        for (int i = position; i < size - 1; i++) {
+            listOfElements[i] = listOfElements[i + 1];
+        }
+
+        size--;
+        if (size < allocatedSize / 4) {
+            resizeHalf();
+        }
+
+        return returnValue;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void resizeHalf() {
+        allocatedSize /= 2;
+        Item[] newListOfElements = (Item[]) new Object[allocatedSize];
+
+        for (int i = 0; i < size; i++) {
+            newListOfElements[i] = listOfElements[i];
+        }
+
+        listOfElements = newListOfElements;
     }
 
     @Override
     public Item sample() {
-        int index = random.nextInt(this.queue.size());
-        Item item = this.queue.get(index);
-        return item;
+
+        if (this.isEmpty()) {
+            throw new java.util.NoSuchElementException();
+        }
+
+        int position = generator.nextInt(size);
+        return listOfElements[position];
+    }
+
+    private void shuffleArray(int[] array) {
+        int index, temp;
+        for (int i = array.length - 1; i > 0; i--) {
+            index = generator.nextInt(i + 1);
+            temp = array[index];
+            array[index] = array[i];
+            array[i] = temp;
+        }
+    }
+
+    private int[] initIndexes() {
+
+        int[] indexes = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            indexes[i] = i;
+        }
+
+        shuffleArray(indexes);
+
+        return indexes;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+
+        Iterator<Item> it = new Iterator<Item>() {
+
+            private int listedCount = 0;
+            private int[] indexes = initIndexes();
+
+            @Override
+            public boolean hasNext() {
+                return listedCount < size;
+            }
+
+            @Override
+            public Item next() {
+
+                if (!hasNext()) {
+                    throw new java.util.NoSuchElementException();
+                }
+                return listOfElements[indexes[listedCount++]];
+            }
+
+            @Override
+            public void remove() {
+                if (isEmpty()) {
+                    throw new UnsupportedOperationException();
+                }
+            }
+
+        };
+
+        return it;
     }
 }
