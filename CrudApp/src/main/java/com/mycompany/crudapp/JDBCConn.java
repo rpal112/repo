@@ -13,6 +13,8 @@ import java.sql.SQLException;
 /**
  *
  * @author rpal
+ * not used !
+ * 
  */
 public class JDBCConn {
     
