@@ -1,28 +1,37 @@
-create database if not exists JPA;
-use JPA;
+CREATE DATABASE IF NOT EXISTS JPA;
+USE JPA;
 
 
-create table if not exists department(
+CREATE TABLE IF NOT EXISTS department(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(100)
 );
 
-create table if not exists employee (
+CREATE TABLE IF NOT EXISTS employee (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(100),
 	salary LONG,
 	dept_id INT,
-	street varchar(100),
-	city varchar(100),
-	state varchar(100),
-	zip_code varchar(10),
+	street VARCHAR(100),
+	city VARCHAR(100),
+	state VARCHAR(100),
+	zip_code VARCHAR(10),
 	birthday TIMESTAMP,
 	FOREIGN KEY(dept_id) REFERENCES department(id)
 );
 
-create table if not exists project (
+CREATE TABLE IF NOT EXISTS project (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	name varchar(100),
-	project_manager varchar(100),
-	description varchar(500)
+	name VARCHAR(100),
+	project_manager VARCHAR(100),
+	description VARCHAR(500)
 );
+
+CREATE TABLE IF NOT EXISTS emp_prj (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        prjId INT,
+        empId INT,
+        FOREIGN KEY(prjId) REFERENCES project(id),
+        FOREIGN KEY(empId) REFERENCES employee(id)
+);
+  

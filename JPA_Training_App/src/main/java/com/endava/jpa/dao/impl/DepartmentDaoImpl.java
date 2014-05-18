@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import javax.persistence.Query;
 
 @Repository
 public class DepartmentDaoImpl implements DepartmentDao {
@@ -20,25 +21,28 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	public Department find(int id) {
 		return entityManager.find(Department.class, id);
 	}
-
+        
 	public List<Department> find(String departmentName) {
-		return entityManager.createQuery(QUERY_FIND_DEPARTMENT_BY_NAME)
-				.setParameter("dep_name", departmentName)
-				.getResultList();
+//		return entityManager.createQuery(QUERY_FIND_DEPARTMENT_BY_NAME)
+//				.setParameter("dep_name", departmentName)
+//				.getResultList();
+            Query query = entityManager.createNamedQuery("Department.getByName");
+            query.setParameter("name", departmentName);
+            return query.getResultList();
 	}
 
 	@Override
 	public void save(Department toBeSaved) {
-		// To be implemented
+		entityManager.persist(toBeSaved);
 	}
 
 	@Override
-	public void update(Department toBeUpdated) {
-		// To be implemented
+	public Department update(Department toBeUpdated) {
+		return entityManager.merge(toBeUpdated);
 	}
 
 	@Override
 	public void remove(Department toBeRemoved) {
-		// To be implemented
+		entityManager.remove(toBeRemoved);
 	}
 }

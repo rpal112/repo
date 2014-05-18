@@ -12,7 +12,7 @@ public interface DepartmentService {
 
 	public void save(Department toBeSaved);
 
-	public void update(Department toBeUpdated);
+	public Department update(Department toBeUpdated);
 
 	public void remove(Department toBeRemoved);
 }

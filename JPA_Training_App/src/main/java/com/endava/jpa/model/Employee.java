@@ -5,11 +5,19 @@
  */
 package com.endava.jpa.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -18,9 +26,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "employee")
-public class Employee {
+
+@NamedQuery(name = "Employee.getByName" , query = "SELECT e FROM Employee e WHERE e.name = :name")
+public class Employee implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     @Column
@@ -29,8 +40,9 @@ public class Employee {
     @Column
     private Long salary;
 
-    @Column
-    private int dept_id;
+    @ManyToOne
+    @JoinColumn(name = "dept_id", referencedColumnName = "id")
+    private Department department;
 
     @Column
     private Timestamp birthday;
@@ -81,20 +93,6 @@ public class Employee {
     }
 
     /**
-     * @return the dept_id
-     */
-    public int getDept_id() {
-        return dept_id;
-    }
-
-    /**
-     * @param dept_id the dept_id to set
-     */
-    public void setDept_id(int dept_id) {
-        this.dept_id = dept_id;
-    }
-
-    /**
      * @return the birthday
      */
     public Timestamp getBirthday() {
@@ -120,6 +118,20 @@ public class Employee {
      */
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    /**
+     * @return the department
+     */
+    public Department getDepartment() {
+        return department;
+    }
+
+    /**
+     * @param department the department to set
+     */
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
 }

@@ -25,11 +25,21 @@ public class Address {
     @Column
     private String city;
     
-    @Column
-    private String state;
+    @Column(name = "state")
+    private String countryState;
+   
+    @Column(name = "zip_code")
+    private String zipCode;
+
+    public Address() {
+    }
     
-    @Column
-    private String zip_code;
+    public Address(String street, String city, String state, String zip_code){
+        this.street = street;
+        this.city = city;
+        this.countryState = state;
+        this.zipCode = zip_code;
+    }
 
     /**
      * @return the street
@@ -62,28 +72,28 @@ public class Address {
     /**
      * @return the state
      */
-    public String getState() {
-        return state;
+    public String getCountryState() {
+        return countryState;
     }
 
     /**
-     * @param state the state to set
+     * @param countryState the state to set
      */
-    public void setState(String state) {
-        this.state = state;
+    public void setCountryState(String countryState) {
+        this.countryState = countryState;
     }
 
     /**
      * @return the zip_code
      */
     public String getZip_code() {
-        return zip_code;
+        return zipCode;
     }
 
     /**
      * @param zip_code the zip_code to set
      */
     public void setZip_code(String zip_code) {
-        this.zip_code = zip_code;
+        this.zipCode = zip_code;
     }
 }
