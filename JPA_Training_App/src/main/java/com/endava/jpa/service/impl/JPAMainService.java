@@ -47,7 +47,7 @@ public class JPAMainService {
      */
     public void insertDepartment() {
         Department d = new Department();
-        d.setName("Testing");
+        d.setName("Oracle");
         departmentService.save(d);
     }
 
@@ -66,8 +66,9 @@ public class JPAMainService {
      * Delete an existing department from the database
      */
     public void deleteDepartment() {
-
-        departmentService.remove(departmentService.find(3));
+        final Department dept = departmentService.find(4);
+        System.out.println(dept);
+        departmentService.remove(dept);
     }
 
     //-------------------------------------- Employee -----------------------------/
@@ -98,11 +99,19 @@ public class JPAMainService {
 
     }
 
+    public void getEmployeesFromProjectName(){
+        List<Employee> result = employeeService.findEmployeeByProjectName("Endava");
+        for(Employee e : result){
+            System.out.println("The employee is:  " + e.getName() + " " + e.getAddress().getCity() + " " + e.getDepartment().getName());
+        }
+    }
+    
     /**
      * Give a salary raise(+10%) for all employees that work in the 'Endava'
      * project (project name = 'Endava'). ! Use a join query.
      */
     public void giveSalaryRaise() {
+        
     }
 
     //-------------------------------------- Project -----------------------------/
@@ -110,8 +119,8 @@ public class JPAMainService {
      * Add a new employee to the 'Endava' project. (project name = 'Endava')
      */
     public void addEmployee() {
-        Employee e = employeeService.find(3);
-        Project p = projectService.find(2);
+        Employee e = employeeService.find(1);
+        Project p = projectService.find(1);
         empPrjService.addEmployee(e, p);
     }
 
@@ -120,15 +129,8 @@ public class JPAMainService {
      * manager.
      */
     public void removeEmployee() {
-         EmpPrj emp = findEmpPrj(2,2);
-         empPrjService.removeEmployee(emp);
+        empPrjService.removeEmployee(empPrjService.find(3, 2));
     }
 
-    /**
-     * Find employee
-     */
-    public EmpPrj findEmpPrj(int idEmp , int idPrj){
-        return empPrjService.find(idEmp, idPrj);
-    }
-
+    
 }

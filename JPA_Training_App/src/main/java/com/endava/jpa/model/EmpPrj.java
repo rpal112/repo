@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -19,22 +20,22 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "emp_prj")
-@NamedQuery(name = "EmpPrj.getById" , query = "SELECT e FROM EmpPrj e WHERE e.project.id = :idPrj and e.employee.id = :idEmp")
+@NamedQueries({
+    @NamedQuery(name = "EmpPrj.getById", query = "SELECT e FROM EmpPrj e WHERE e.employee.id = :empId and e.project.id = :prjId")
+})
 public class EmpPrj {
 
     @Id
     @Column(name = "id")
     private int id;
 
-    
+    @ManyToOne
+    @JoinColumn(name = "empId", referencedColumnName = "id")
+    private Employee employee;
+
     @ManyToOne
     @JoinColumn(name = "prjId", referencedColumnName = "id")
     private Project project;
-
-    
-    @ManyToOne
-    @JoinColumn(name = "empID", referencedColumnName = "id")
-    private Employee employee;
 
     /**
      * @return the id
@@ -78,7 +79,7 @@ public class EmpPrj {
         this.employee = employee;
     }
 
-   @Override
+    @Override
     public String toString() {
         return "EmpPrj{"
                 + "id=" + id
@@ -86,6 +87,5 @@ public class EmpPrj {
                 + ", project ='" + project + '\''
                 + '}';
     }
-   
 
 }

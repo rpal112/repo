@@ -11,10 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(readOnly = true)
 public class EmployeeServiceImpl implements EmployeeService {
-    
+
     @Autowired
     private EmployeeDao employeeDao;
-    
+
     @Override
     public Employee find(int id) {
         return employeeDao.find(id);
@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> find(String employeeName) {
         return employeeDao.find(employeeName);
     }
-    
+
     @Override
     @Transactional
     public void save(Employee toBeSaved) {
@@ -36,15 +36,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void update(Employee toBeUpdated) {
         employeeDao.update(toBeUpdated);
     }
-    
+
     @Override
     @Transactional
     public void remove(Employee toBeRemoved) {
         employeeDao.remove(toBeRemoved);
     }
 
-    
     public List<Employee> findByCityAndByDepartment(String city, int id) {
-       return employeeDao.findByCityAndByDepartment(city, id);
+        return employeeDao.findByCityAndByDepartment(city, id);
+    }
+
+    public List<Employee> findEmployeeByProjectName(String projectName) {
+        return employeeDao.findEmployeeByProjectName(projectName);
     }
 }

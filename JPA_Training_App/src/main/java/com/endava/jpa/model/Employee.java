@@ -7,7 +7,6 @@ package com.endava.jpa.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -15,8 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -24,14 +23,17 @@ import javax.persistence.Table;
  *
  * @author rpal
  */
+@NamedQueries({
+    
+    @NamedQuery(name = "Employee.getByName", query = "SELECT e FROM Employee e WHERE e.name = :name")
+})
+
 @Entity
 @Table(name = "employee")
-
-@NamedQuery(name = "Employee.getByName" , query = "SELECT e FROM Employee e WHERE e.name = :name")
-public class Employee implements Serializable {
+public class Employee {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column

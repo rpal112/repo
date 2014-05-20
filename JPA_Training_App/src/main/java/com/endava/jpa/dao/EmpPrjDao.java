@@ -20,7 +20,7 @@ public interface EmpPrjDao {
 
     public void removeEmployee(EmpPrj empPrj);
 
-    public EmpPrj find(int idPrj, int idEmp);
-    
+    public EmpPrj find(int empId, int prjId);
+
     public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated);
 }

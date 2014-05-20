@@ -12,36 +12,43 @@ import javax.persistence.Query;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao {
 
-	@PersistenceContext
-	private EntityManager entityManager;
-        private String QueryFindEmployeeByCityAndByDep = "SELECT e FROM Employee e WHERE e.address.city = :city and e.department.id = :id ";
+    @PersistenceContext
+    private EntityManager entityManager;
+    private String QueryFindEmployeeByCityAndByDep = "SELECT e FROM Employee e WHERE e.address.city = :city and e.department.id = :id ";
+    
 
     public Employee find(int id) {
-       return entityManager.find(Employee.class, id);
+        return entityManager.find(Employee.class, id);
     }
 
     public List<Employee> find(String employeeName) {
-      Query query = entityManager.createNamedQuery("Employee.getByName");
-            query.setParameter("name", employeeName);
-            return query.getResultList();
+        Query query = entityManager.createNamedQuery("Employee.getByName");
+        query.setParameter("name", employeeName);
+        return query.getResultList();
     }
 
     public void save(Employee toBeSaved) {
-           entityManager.persist(toBeSaved);
+        entityManager.persist(toBeSaved);
     }
 
     public void update(Employee toBeUpdated) {
-           entityManager.merge(toBeUpdated);
+        entityManager.merge(toBeUpdated);
     }
 
     public void remove(Employee toBeRemoved) {
-           entityManager.remove(toBeRemoved);
+        entityManager.remove(toBeRemoved);
     }
 
     public List<Employee> findByCityAndByDepartment(String city, int id) {
         return entityManager.createQuery(QueryFindEmployeeByCityAndByDep)
-				.setParameter("city", city)
-                                .setParameter("id", id)
-				.getResultList();
+                .setParameter("city", city)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public List<Employee> findEmployeeByProjectName(String projectName) {
+        Query query = entityManager.createNamedQuery("Employee.getByProjectName");
+        query.setParameter("projectName", projectName);
+        return query.getResultList();
     }
 }

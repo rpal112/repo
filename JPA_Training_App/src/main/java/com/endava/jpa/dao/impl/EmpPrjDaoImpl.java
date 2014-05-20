@@ -34,19 +34,20 @@ public class EmpPrjDaoImpl implements EmpPrjDao {
     }
 
 
-    public EmpPrj find(int idPrj , int idEmp) {
-       Query query = entityManager.createNamedQuery("EmpPrj.getById");
-            query.setParameter("idPrj", idPrj);
-            query.setParameter("idEmp", idEmp);
+     public EmpPrj find(int empId , int prjId) {
+       Query query = entityManager.createNamedQuery("EmpPrj.getById");  
+            query.setParameter("empId", empId);
+            query.setParameter("prjId", prjId);
             return (EmpPrj) query.getSingleResult();
     }
 
     public void removeEmployee(EmpPrj empPrj) {
        entityManager.remove(empPrj);
+       entityManager.flush();
     }
 
-    public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated) {
-       return entityManager.merge(empPrjToBeUpdated);
+    public EmpPrj empPrjUpdate(EmpPrj empPrj) {
+       return entityManager.merge(empPrj);
     }
 
     

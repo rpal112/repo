@@ -36,8 +36,8 @@ public class EmpPrjServiceImpl implements EmpPrjService{
    
 
     @Override
-    public EmpPrj find(int idPrj, int idEmp) {
-       return empPrjDao.find(idPrj, idEmp);
+     public EmpPrj find(int empId , int prjId) {
+       return empPrjDao.find(empId, prjId);
     }
 
 
@@ -46,7 +46,12 @@ public class EmpPrjServiceImpl implements EmpPrjService{
     }
 
     public void removeEmployee(EmpPrj empPrj) {
-        empPrjDao.removeEmployee(empPrjDao.empPrjUpdate(empPrj));
+        empPrjDao.removeEmployee(
+//                empPrjDao.find(empPrj.getEmployee().getId(), empPrj.getProject().getId())
+                empPrjDao.empPrjUpdate(empPrj)
+               
+        );
+        
     }
 
     

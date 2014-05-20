@@ -20,9 +20,9 @@ public interface EmpPrjService {
 
     public void removeEmployee(EmpPrj empPrj);
     
-    public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated);
+    public EmpPrj empPrjUpdate(EmpPrj empPrj);
     
-    public EmpPrj find(int idPrj , int idEmp);
+    public EmpPrj find(int empId , int idPrj);
     
 
 }
