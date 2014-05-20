@@ -7,9 +7,11 @@
 package com.endava.jpa.service.impl;
 
 import com.endava.jpa.dao.EmpPrjDao;
+import com.endava.jpa.model.EmpPrj;
 import com.endava.jpa.model.Employee;
 import com.endava.jpa.model.Project;
 import com.endava.jpa.service.EmpPrjService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +33,21 @@ public class EmpPrjServiceImpl implements EmpPrjService{
        empPrjDao.addEmployee(empToAdd, prjToAdd);
     }
 
-    public void removeEmployee(Employee empToRemove, Project prjToRemove) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+
+    @Override
+    public EmpPrj find(int idPrj, int idEmp) {
+       return empPrjDao.find(idPrj, idEmp);
     }
+
+
+    public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated) {
+      return empPrjDao.empPrjUpdate(empPrjToBeUpdated);
+    }
+
+    public void removeEmployee(EmpPrj empPrj) {
+        empPrjDao.removeEmployee(empPrjDao.empPrjUpdate(empPrj));
+    }
+
     
 }

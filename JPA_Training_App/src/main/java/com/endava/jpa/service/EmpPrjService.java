@@ -5,8 +5,10 @@
  */
 package com.endava.jpa.service;
 
+import com.endava.jpa.model.EmpPrj;
 import com.endava.jpa.model.Employee;
 import com.endava.jpa.model.Project;
+import java.util.List;
 
 /**
  *
@@ -16,6 +18,11 @@ public interface EmpPrjService {
 
     public void addEmployee(Employee empToAdd , Project prjToAdd);
 
-    public void removeEmployee(Employee empToRemove, Project prjToRemove);
+    public void removeEmployee(EmpPrj empPrj);
+    
+    public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated);
+    
+    public EmpPrj find(int idPrj , int idEmp);
+    
 
 }

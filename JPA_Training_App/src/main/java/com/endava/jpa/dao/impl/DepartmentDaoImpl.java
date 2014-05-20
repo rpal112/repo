@@ -15,7 +15,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	private String QUERY_FIND_DEPARTMENT_BY_NAME = "Select d from Department d where d.name = :dep_name";
+	//private String QUERY_FIND_DEPARTMENT_BY_NAME = "Select d from Department d where d.name = :dep_name";
 
 	@Override
 	public Department find(int id) {

@@ -19,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "emp_prj")
+@NamedQuery(name = "EmpPrj.getById" , query = "SELECT e FROM EmpPrj e WHERE e.project.id = :idPrj and e.employee.id = :idEmp")
 public class EmpPrj {
 
     @Id
@@ -77,8 +78,14 @@ public class EmpPrj {
         this.employee = employee;
     }
 
-    /**
-     * @return the prjId
-     */
+   @Override
+    public String toString() {
+        return "EmpPrj{"
+                + "id=" + id
+                + ", employee ='" + employee + '\''
+                + ", project ='" + project + '\''
+                + '}';
+    }
    
+
 }

@@ -15,7 +15,7 @@ public class Main {
 
 		
 //		jpaMainService.findDepartment();
-		//jpaMainService.findDepartmentByName();
+//              jpaMainService.findDepartmentByName();
                 
 
 		
@@ -25,8 +25,9 @@ public class Main {
 //		jpaMainService.insertEmployee();
 //		jpaMainService.getEmployeesFromBucharest();
 //		jpaMainService.giveSalaryRaise();
-                jpaMainService.addEmployee();
-//		jpaMainService.removeEmployee();
+//              jpaMainService.addEmployee();
+		jpaMainService.removeEmployee();
+//               jpaMainService.findEmpPrj();
 		
 
 	}

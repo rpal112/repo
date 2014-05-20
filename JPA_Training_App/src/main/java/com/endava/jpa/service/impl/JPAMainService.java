@@ -2,6 +2,7 @@ package com.endava.jpa.service.impl;
 
 import com.endava.jpa.model.Address;
 import com.endava.jpa.model.Department;
+import com.endava.jpa.model.EmpPrj;
 import com.endava.jpa.model.Employee;
 import com.endava.jpa.model.Project;
 import com.endava.jpa.service.DepartmentService;
@@ -24,11 +25,11 @@ public class JPAMainService {
 
     @Autowired
     private ProjectService projectService;
-    
+
     @Autowired
     private EmpPrjService empPrjService;
 
-	//-------------------------------------- Department -----------------------------/
+    //-------------------------------------- Department -----------------------------/
     public void findDepartment() {
         Department department = departmentService.find(1);
         System.out.println(department);
@@ -46,7 +47,7 @@ public class JPAMainService {
      */
     public void insertDepartment() {
         Department d = new Department();
-        d.setName("Accounting");
+        d.setName("Testing");
         departmentService.save(d);
     }
 
@@ -65,8 +66,8 @@ public class JPAMainService {
      * Delete an existing department from the database
      */
     public void deleteDepartment() {
-      
-       departmentService.remove(departmentService.find(3));
+
+        departmentService.remove(departmentService.find(3));
     }
 
     //-------------------------------------- Employee -----------------------------/
@@ -75,13 +76,12 @@ public class JPAMainService {
      */
     public void insertEmployee() {
         Employee e = new Employee();
-        e.setName("Dodan Cosmin");
-        e.setSalary(2700l);
-        e.setDepartment(departmentService.find(1));
-        e.setAddress(new Address("Sadului", "Bucharest", "Romania", "02231"));
+        e.setName("Onea Madalina");
+        e.setSalary(1900l);
+        e.setDepartment(departmentService.find(2));
+        e.setAddress(new Address("Mihai Bravu", "Bucharest", "Romania", "3242"));
         employeeService.save(e);
-        
-        
+
     }
 
     /**
@@ -92,10 +92,10 @@ public class JPAMainService {
      */
     public void getEmployeesFromBucharest() {
         List<Employee> result = employeeService.findByCityAndByDepartment("Bucharest", 1);
-        for(Employee e:result){
-            System.out.println("The employee is:  " + e.getName() + " " + e.getAddress().getCity()+ " " +e.getDepartment().getName());
+        for (Employee e : result) {
+            System.out.println("The employee is:  " + e.getName() + " " + e.getAddress().getCity() + " " + e.getDepartment().getName());
         }
-        
+
     }
 
     /**
@@ -105,14 +105,14 @@ public class JPAMainService {
     public void giveSalaryRaise() {
     }
 
-	//-------------------------------------- Project -----------------------------/
+    //-------------------------------------- Project -----------------------------/
     /**
      * Add a new employee to the 'Endava' project. (project name = 'Endava')
      */
     public void addEmployee() {
-    Employee e = employeeService.find(1);
-    Project p = projectService.find(1);
-    empPrjService.addEmployee(e, p);
+        Employee e = employeeService.find(3);
+        Project p = projectService.find(2);
+        empPrjService.addEmployee(e, p);
     }
 
     /**
@@ -120,6 +120,15 @@ public class JPAMainService {
      * manager.
      */
     public void removeEmployee() {
+         EmpPrj emp = findEmpPrj(2,2);
+         empPrjService.removeEmployee(emp);
+    }
+
+    /**
+     * Find employee
+     */
+    public EmpPrj findEmpPrj(int idEmp , int idPrj){
+        return empPrjService.find(idEmp, idPrj);
     }
 
 }
