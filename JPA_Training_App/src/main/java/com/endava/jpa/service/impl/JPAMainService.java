@@ -99,19 +99,17 @@ public class JPAMainService {
 
     }
 
-    public void getEmployeesFromProjectName(){
-        List<Employee> result = employeeService.findEmployeeByProjectName("Endava");
-        for(Employee e : result){
-            System.out.println("The employee is:  " + e.getName() + " " + e.getAddress().getCity() + " " + e.getDepartment().getName());
-        }
-    }
-    
     /**
      * Give a salary raise(+10%) for all employees that work in the 'Endava'
      * project (project name = 'Endava'). ! Use a join query.
      */
     public void giveSalaryRaise() {
-        
+         List<Employee> list = empPrjService.findByPrjName("Endava");
+         for(Employee e : list){
+             Employee empl = e;
+             e.setSalary(e.getSalary() + (e.getSalary() /10));
+             employeeService.update(empl);
+         }
     }
 
     //-------------------------------------- Project -----------------------------/
@@ -132,5 +130,4 @@ public class JPAMainService {
         empPrjService.removeEmployee(empPrjService.find(3, 2));
     }
 
-    
 }

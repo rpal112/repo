@@ -24,5 +24,7 @@ public interface EmpPrjService {
     
     public EmpPrj find(int empId , int idPrj);
     
+    public List<Employee> findByPrjName (String prjName);
+    
 
 }

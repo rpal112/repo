@@ -10,9 +10,7 @@ public interface EmployeeDao {
     public List<Employee> find(String employeeName);
     
     public List<Employee> findByCityAndByDepartment(String city , int id);
-    
-    public List<Employee> findEmployeeByProjectName(String projectName);
-
+       
     public void save(Employee toBeSaved);
 
     public void update(Employee toBeUpdated);

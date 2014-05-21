@@ -21,7 +21,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "emp_prj")
 @NamedQueries({
-    @NamedQuery(name = "EmpPrj.getById", query = "SELECT e FROM EmpPrj e WHERE e.employee.id = :empId and e.project.id = :prjId")
+    @NamedQuery(name = "EmpPrj.getById", query = "SELECT e FROM EmpPrj e WHERE e.employee.id = :empId and e.project.id = :prjId"),
+    @NamedQuery(name = "EmpPrj.getEmpNameByPrjName", query = "SELECT e.employee FROM EmpPrj e WHERE e.project.name = :prjName")
 })
 public class EmpPrj {
 

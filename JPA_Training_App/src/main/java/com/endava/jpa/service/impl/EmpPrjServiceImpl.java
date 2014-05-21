@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.endava.jpa.service.impl;
 
 import com.endava.jpa.dao.EmpPrjDao;
@@ -22,37 +21,34 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = true)
-public class EmpPrjServiceImpl implements EmpPrjService{
+public class EmpPrjServiceImpl implements EmpPrjService {
 
     @Autowired
     private EmpPrjDao empPrjDao;
-    
+
     @Override
     @Transactional
     public void addEmployee(Employee empToAdd, Project prjToAdd) {
-       empPrjDao.addEmployee(empToAdd, prjToAdd);
+        empPrjDao.addEmployee(empToAdd, prjToAdd);
     }
-
-   
 
     @Override
-     public EmpPrj find(int empId , int prjId) {
-       return empPrjDao.find(empId, prjId);
+    public EmpPrj find(int empId, int prjId) {
+        return empPrjDao.find(empId, prjId);
     }
 
-
     public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated) {
-      return empPrjDao.empPrjUpdate(empPrjToBeUpdated);
+        return empPrjDao.empPrjUpdate(empPrjToBeUpdated);
     }
 
     public void removeEmployee(EmpPrj empPrj) {
-        empPrjDao.removeEmployee(
-//                empPrjDao.find(empPrj.getEmployee().getId(), empPrj.getProject().getId())
-                empPrjDao.empPrjUpdate(empPrj)
-               
+        empPrjDao.removeEmployee(empPrjDao.empPrjUpdate(empPrj)
         );
-        
+
     }
 
-    
+    public List<Employee> findByPrjName(String prjName) {
+        return empPrjDao.findByPrjName(prjName);
+    }
+
 }

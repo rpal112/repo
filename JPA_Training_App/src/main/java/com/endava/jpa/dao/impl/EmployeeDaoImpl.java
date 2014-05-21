@@ -46,9 +46,5 @@ public class EmployeeDaoImpl implements EmployeeDao {
                 .getResultList();
     }
 
-    public List<Employee> findEmployeeByProjectName(String projectName) {
-        Query query = entityManager.createNamedQuery("Employee.getByProjectName");
-        query.setParameter("projectName", projectName);
-        return query.getResultList();
-    }
+    
 }

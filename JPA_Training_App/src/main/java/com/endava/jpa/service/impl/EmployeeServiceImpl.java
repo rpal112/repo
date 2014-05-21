@@ -47,7 +47,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDao.findByCityAndByDepartment(city, id);
     }
 
-    public List<Employee> findEmployeeByProjectName(String projectName) {
-        return employeeDao.findEmployeeByProjectName(projectName);
-    }
+    
 }

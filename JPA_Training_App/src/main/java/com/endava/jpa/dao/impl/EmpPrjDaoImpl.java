@@ -50,6 +50,12 @@ public class EmpPrjDaoImpl implements EmpPrjDao {
        return entityManager.merge(empPrj);
     }
 
+    public List<Employee> findByPrjName(String prjName) {
+        Query query = entityManager.createNamedQuery("EmpPrj.getEmpNameByPrjName");
+        query.setParameter("prjName", prjName);
+        return query.getResultList();
+    }
+
     
 
 

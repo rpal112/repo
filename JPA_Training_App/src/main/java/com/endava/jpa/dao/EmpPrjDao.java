@@ -23,4 +23,6 @@ public interface EmpPrjDao {
     public EmpPrj find(int empId, int prjId);
 
     public EmpPrj empPrjUpdate(EmpPrj empPrjToBeUpdated);
+    
+    public List<Employee> findByPrjName (String prjName);
 }
