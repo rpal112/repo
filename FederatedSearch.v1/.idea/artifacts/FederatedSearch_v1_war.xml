@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="FederatedSearch.v1:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="FederatedSearch.v1.war">
+      <element id="artifact" artifact-name="FederatedSearch.v1:war exploded" />
+    </root>
+  </artifact>
+</component>
